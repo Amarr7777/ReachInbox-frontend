@@ -3,35 +3,15 @@ import googleLogo from "../../assets/google.svg";
 import axios from "axios";
 
 function LoginCard() {
-    const handleLogin = async () => {
-        const requestOptions = {
-          method: "GET",
-          redirect: "follow",
-        };
-    
-        try {
-          const response = await fetch(
-            "https://hiring.reachinbox.xyz/api/v1/auth/google-login?redirect_to=https://frontend.com",
-            requestOptions
-          );
-          const result = await response.text();
-          console.log(result);
-          // You can handle the result here, such as storing tokens, etc.
-        } catch (error) {
-          console.error("Error during login:", error);
-        }
-      };
-    
-      useEffect(() => {
-        const urlParams = new URLSearchParams(window.location.search);
-        const token = urlParams.get("token");
-    
-        if (token) {
-          localStorage.setItem("authToken", token);
-          axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-          console.log(token);
-        }
-      }, []);
+  const handleLogin = () => {
+    const clientId = '55968650598-ge128kr3vnl9vibj269u9bnvdcjd4hlt.apps.googleusercontent.com'; // Replace with your Google client ID
+    const redirectUri = 'http://localhost:5173/onebox'; // The URL to which Google will redirect after login
+    const scope = 'profile email';
+    const state = encodeURIComponent(JSON.stringify({ redirectTo: 'http://localhost:5173/onebox' }));
+  
+    // Redirect to Google's OAuth 2.0 server
+    window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?response_type=code&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${encodeURIComponent(scope)}&state=${state}&client_id=${clientId}`;
+  };
 
   return (
     <div className="flex flex-auto justify-center items-center h-[663px] w-full px-[59px] py-[29px]">

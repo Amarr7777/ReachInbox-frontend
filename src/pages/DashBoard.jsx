@@ -8,7 +8,9 @@ function DashBoard({handleTheme}) {
       <SideBar />
       <div className="flex flex-col w-full">
         <Header handleTheme = {handleTheme}/>
-        <div className="h-full dark:bg-black bg-white"></div>
+        <div className="h-full dark:bg-black bg-white">
+          
+        </div>
       </div>
     </div>
   );
