@@ -1,16 +1,16 @@
 import React, { useEffect } from "react";
 import googleLogo from "../../assets/google.svg";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function LoginCard() {
+  const history = useNavigate();
+
   const handleLogin = () => {
-    const clientId = '55968650598-ge128kr3vnl9vibj269u9bnvdcjd4hlt.apps.googleusercontent.com'; // Replace with your Google client ID
-    const redirectUri = 'http://localhost:5173/onebox'; // The URL to which Google will redirect after login
-    const scope = 'profile email';
-    const state = encodeURIComponent(JSON.stringify({ redirectTo: 'http://localhost:5173/onebox' }));
-  
-    // Redirect to Google's OAuth 2.0 server
-    window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?response_type=code&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${encodeURIComponent(scope)}&state=${state}&client_id=${clientId}`;
+    const redirectUri = 'http://localhost:5173/onebox'; // Your frontend URL where Google will redirect after login
+    const authUrl = `https://hiring.reachinbox.xyz/api/v1/auth/google-login?redirect_to=${encodeURIComponent(redirectUri)}`;
+
+    // Redirect to the custom Google OAuth URL
+    window.location.href = authUrl;
   };
 
   return (
