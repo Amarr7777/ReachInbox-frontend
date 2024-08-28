@@ -1,9 +1,7 @@
 import React from "react";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import moonImg from "../../assets/moon.png";
-import sunImg from "../../assets/sun.png";
-import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
-import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
+import moonImg from "../../assets/moon.svg";
+import sunImg from "../../assets/sun.svg";
 
 function Header({ handleTheme }) {
   return (
@@ -23,8 +21,8 @@ function Header({ handleTheme }) {
             onChange={handleTheme}
           />
           <div className=" flex w-full justify-between">
-            <DarkModeOutlinedIcon className="visible dark:invisible w-[1px] h-[1px] text-[#E8C364]" />
-            <LightModeOutlinedIcon className="invisible dark:visible w-[1px] h-[1px] text-[#E8C364]" />
+            <img src={moonImg} className="visible dark:invisible px-1" />
+            <img src={sunImg} className="invisible dark:visible px-1" />
           </div>
           <span className="absolute dark:bg-[#888686]  inset-y-0 h-[16px] w-[16px] start-0 m-1 size-6 rounded-full bg-white transition-all peer-checked:start-6"></span>
         </label>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Routes from './routes/routes'
+import Router from './routes/Router';
 
 function App() {
   const [isDarkMode,setIsDarkMode]=useState(true);
@@ -13,7 +13,7 @@ function App() {
 
   return (
     <div>
-      <Routes handleTheme={handleTheme}/>
+      <Router handleTheme={handleTheme}/>
     </div>
   )
 }
