@@ -1,20 +1,47 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import replayButton from "../../../assets/replay.svg";
 import replayLightButton from "../../../assets/replayLight.svg";
 import SearchIcon from "@mui/icons-material/Search";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import MailCard from "./MailCard";
+import axios from "axios";
 
 function Inbox() {
-  const headerHeight = 68; // Example header height
-  const searchHeight = 64; // Example search bar height
-  const additionalHeight = 76; // Example additional height
-
-  // Calculate remaining height
+  const headerHeight = 68; 
+  const searchHeight = 64; 
+  const additionalHeight = 76; 
   const contentHeight = `calc(100vh - ${headerHeight + searchHeight + additionalHeight}px)`;
+  const [emails,setEmails] = useState([]);
+  async function fetchEmails() {
+    const token = localStorage.getItem("authToken"); 
+
+    try {
+      const response = await axios.get(
+        "https://hiring.reachinbox.xyz/api/v1/onebox/list",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, 
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (response.status === 200) {
+        console.log("Emails:", response.data.data); 
+        setEmails(response.data.data);
+      } else {
+        console.error("Failed to fetch emails");
+      }
+    } catch (error) {
+      console.error("Error fetching emails:", error);
+    }
+  }
+
+  useEffect(()=>{
+    fetchEmails();
+  },[])
 
   return (
-    <div className="h-full w-max min-w-[361px] bg-transparent border-r border-[#E0E0E0] dark:border-[#33383F] px-5 py-2 flex flex-col gap-[8px]">
+    <div className="h-full w-max  bg-transparent border-r border-[#E0E0E0] dark:border-[#33383F] px-5 py-2 flex flex-col gap-[8px]">
       <div className="flex justify-between items-center">
         <div>
           <p className="font-sans font-[700] text-[20px] leading-[27.4px] text-[#4285F4]">
@@ -64,15 +91,9 @@ function Inbox() {
         style={{ height: contentHeight }}
         className="flex flex-col justify-start items-center overflow-y-scroll pt-2"
       >
-        <MailCard />
-        <MailCard />
-        <MailCard />
-        <MailCard />
-        <MailCard />
-        <MailCard />
-        <MailCard />
-        <MailCard />
-        <MailCard />
+       {emails.map((email) => (
+          <MailCard key={email.id} email={email} />
+        ))}
       </div>
     </div>
   );

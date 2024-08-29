@@ -2,49 +2,37 @@ import React, { useEffect, useState } from "react";
 import SideBar from "../components/dashboard/SideBar";
 import Header from "../components/dashboard/Header";
 import axios from "axios";
-import Inbox from "../components/dashboard/email/Inbox";
+import Inbox from "../components/dashboard/inbox/Inbox";
+import { useNavigate } from "react-router-dom";
+import Lead from "../components/dashboard/Lead/Lead";
+import EmailView from "../components/dashboard/emailView/EmailView";
 
 function DashBoard({ handleTheme }) {
   const [emails, setEmails] = useState([]);
   const token = localStorage.getItem("authToken"); // Retrieve the token from storage
-
-  async function fetchEmails() {
-    const token = localStorage.getItem("authToken"); // Retrieve the stored token
-
-    try {
-      const response = await axios.get(
-        "https://hiring.reachinbox.xyz/api/v1/onebox/list",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`, // Include the Bearer token in the request
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      if (response.status === 200) {
-        console.log("Emails:", response.data); // Handle the response data
-      } else {
-        console.error("Failed to fetch emails");
-      }
-    } catch (error) {
-      console.error("Error fetching emails:", error);
-    }
-  }
+  const navigation = useNavigate();
 
   useEffect(() => {
-    fetchEmails();
-  }, []);
+    if (!token) {
+      navigation.navigate("/");
+    }
+  }, [token, navigation]);
 
   return (
     <div class="flex">
       <SideBar />
       <div className="flex flex-col w-full">
         <Header handleTheme={handleTheme} />
-        <div className="h-full dark:bg-black bg-white">
-          <Inbox/>
-          <div></div>
-          <div></div>
+        <div className="h-full w-full flex dark:bg-black bg-white">
+          <div>
+            <Inbox />
+          </div>
+          <div className="w-full">
+            <EmailView/>
+          </div>
+          <div>
+            <Lead />
+          </div>
         </div>
       </div>
     </div>
