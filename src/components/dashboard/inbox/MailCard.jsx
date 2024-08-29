@@ -22,6 +22,8 @@ function MailCard({ email, handleshowEmailView }) {
     console.log("clicked thread", email.threadId);
   };
 
+  var visibility = email.isRead ? "hidden" : "visible";
+
   return (
     <div
       onClick={handleClick}
@@ -29,8 +31,10 @@ function MailCard({ email, handleshowEmailView }) {
     >
       {/* <div className="absolute w-[8px] h-[8px] bg-[#5C7CFA] rounded-full left-0 flex justify-center items-center"></div> */}
       <div className="flex justify-between items-center ">
-        <div className="absolute left-0 w-[8px] h-[8px] bg-[#5C7CFA] rounded-full"></div>
-        <p className="font-[500] text-[14px] leading-[20px] dark:text-white text-[#343A40] ">
+        <div
+          className={`${visibility} absolute left-0 w-[8px] h-[8px] bg-[#5C7CFA] rounded-full`}
+        ></div>
+        <p className="font-[500] text-[14px] leading-[20px] dark:text-white text-[#343A40] overflow-hidden ">
           {email.fromEmail}
         </p>
         <p className="font-[400] text-[12px] leading-[18px] text-[#919EAB] dark:text-[rgba(252,252,252,0.4)] ">

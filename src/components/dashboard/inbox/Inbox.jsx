@@ -26,7 +26,6 @@ function Inbox({handleshowEmailView}) {
         }
       );
       if (response.status === 200) {
-        console.log("Emails:", response.data.data); 
         setEmails(response.data.data);
       } else {
         console.error("Failed to fetch emails");
@@ -36,13 +35,15 @@ function Inbox({handleshowEmailView}) {
     }
   }
 
+  
+
   useEffect(()=>{
     fetchEmails();
   },[])
 
   return (
     <div className="h-full w-max  bg-transparent border-r border-[#E0E0E0] dark:border-[#33383F] px-5 py-2 flex flex-col gap-[8px]">
-      
+
       <div className="flex justify-between items-center">
         <div>
           <p className="font-sans font-[700] text-[20px] leading-[27.4px] text-[#4285F4]">

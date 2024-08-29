@@ -27,6 +27,7 @@ function EmailViewCard({ email }) {
     return `${formattedDate} : ${formattedTime.toUpperCase()}`;
   }
 
+  
   return (
     <div className="flex flex-col gap-[8px]">
       <span className="flex items-center w-full p-[4px]">
