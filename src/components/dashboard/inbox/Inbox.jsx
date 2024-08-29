@@ -30,7 +30,7 @@ function Inbox({ handleshowEmailView, emails, onReset }) {
   };
 
   return (
-    <div className="h-full w-max  bg-transparent border-r border-[#E0E0E0] dark:border-[#33383F] px-5 py-2 flex flex-col gap-[8px]">
+    <div className="h-full w-max bg-transparent border-r border-[#E0E0E0] dark:border-[#33383F] px-5 py-2 flex flex-col gap-[8px]">
       <div className="flex justify-between items-center">
         <div>
           <p className="font-sans font-[700] text-[20px] leading-[27.4px] text-[#4285F4]">
@@ -56,7 +56,7 @@ function Inbox({ handleshowEmailView, emails, onReset }) {
         <SearchIcon className="-hue-rotate-90 text-[#172B4D] dark:text-[rgba(225,225,225,0.2)]" />
         <input
           placeholder="search"
-          className="w-full h-[28px] bg-transparent font-sans font-[400] text-[14px] leading-[20px]"
+          className="w-full h-[28px] bg-transparent font-sans font-[400] text-[14px] leading-[20px] focus:outline-none focus:ring-0 text-gray-400"
         />
       </div>
       {/* after search */}

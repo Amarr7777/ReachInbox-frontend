@@ -1,9 +1,10 @@
 import React from "react";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { useSelector } from "react-redux";
 
 function EmailViewHeader() {
-  const { fromName, fromEmail } = useSelector((state) => state.email); 
+  const { fromName, fromEmail } = useSelector((state) => state.email);
   return (
     <div className="flex justify-between items-center border-b border-b-[#E0E0E0] dark:border-b-[rgba(248,250,252,0.2)] h-[70px] p-[17px]">
       <div className="flex flex-col justify-start items-start">
@@ -31,7 +32,9 @@ function EmailViewHeader() {
           </p>
           <KeyboardArrowDownIcon className="dark:text-[#A9AEB4] text-[#172B4D] " />
         </div>
-        <div className="w-max dark:bg-[#1F1F1F] border border-[#DFE3E8] bg-white dark:border-[#343A40] rounded-[4px] flex justify-center items-center px-[8px] py-[6px] gap-[6px]"></div>
+        <div className="w-max dark:bg-[#1F1F1F] border border-[#DFE3E8] bg-white dark:border-[#343A40] rounded-[4px] flex justify-center items-center px-[8px] py-[6px] gap-[6px]">
+          <MoreHorizIcon className="dark:text-[#A9AEB4] text-[#172B4D] " />
+        </div>
       </div>
     </div>
   );

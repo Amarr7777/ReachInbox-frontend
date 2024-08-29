@@ -57,7 +57,7 @@ function DashBoard({ handleTheme }) {
   }, [token, navigation]);
 
   return (
-    <div class="flex">
+    <div class="flex flex-shrink">
       <SideBar />
       <div className="flex flex-col w-full">
         <Header handleTheme={handleTheme} />
@@ -69,18 +69,20 @@ function DashBoard({ handleTheme }) {
               onReset={fetchEmails}
             />
           </div>
-          <div className="w-full">
-            {showEmailView ? (
-              <EmailView
-                onDelete={fetchEmails}
-                handleshowEmailView={handleshowEmailView}
-                handleshowEmailViewOnDelete = {handleshowEmailViewOnDelete}
-              />
-            ) : null}
-          </div>
-          <div>
-            <Lead />
-          </div>
+          {showEmailView ? (
+            <>
+              <div className="w-full">
+                <EmailView
+                  onDelete={fetchEmails}
+                  handleshowEmailView={handleshowEmailView}
+                  handleshowEmailViewOnDelete={handleshowEmailViewOnDelete}
+                />
+              </div>
+              <div>
+                <Lead />
+              </div>
+            </>
+          ) : null}
         </div>
       </div>
     </div>

@@ -6,6 +6,7 @@ import axios from "axios";
 import ReplyIcon from "@mui/icons-material/Reply";
 import ExpandIcon from "@mui/icons-material/Expand";
 import DeleteModal from "./DeleteModal";
+import ReplayModal from "./ReplayModal";
 
 function EmailView({
   onDelete,
@@ -17,6 +18,7 @@ function EmailView({
   const [emailChatZero, setEmailChatZero] = useState(null);
   const [showFull, setShowFull] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [showReplyModal, setShowReplyModal] = useState(false);
   const token = localStorage.getItem("authToken");
 
   const fetchEmails = async () => {
@@ -40,6 +42,10 @@ function EmailView({
     } catch (error) {
       console.error("Error fetching emails:", error);
     }
+  };
+
+  const handleReplyModal = () => {
+    setShowReplyModal(!showReplyModal);
   };
 
   const deleteEmailThread = async () => {
@@ -69,9 +75,17 @@ function EmailView({
   };
 
   const handleKeyDown = (event) => {
-    if (event.key === "d" || event.key === "D") {
+    if (showReplyModal) return;
+    const targetElement = event.target.tagName.toLowerCase();
+    if (targetElement === "input" || targetElement === "textarea") return;
+
+    if ((event.key === "d" || event.key === "D") && !showReplyModal) {
       setShowModal(true);
       console.log("D pressed");
+    }
+    if ((event.key === "r" || event.key === "R") && !showReplyModal) {
+      setShowReplyModal(true);
+      console.log("R pressed");
     }
   };
 
@@ -92,8 +106,12 @@ function EmailView({
   return (
     <div>
       {showModal && (
-        <DeleteModal setShowModal={setShowModal} deleteEmailThread={deleteEmailThread}/>
+        <DeleteModal
+          setShowModal={setShowModal}
+          deleteEmailThread={deleteEmailThread}
+        />
       )}
+      {showReplyModal && <ReplayModal handleReplyModal={handleReplyModal} />}
 
       <EmailViewHeader emailChat={emailChat} />
       <div className="flex flex-col justify-center items-center gap-8 pt-8">
@@ -124,7 +142,10 @@ function EmailView({
           ))
         )}
         <div className="md:w-[753px]">
-          <button className="flex items-center justify-center gap-[10px] w-max h-max py-[13px] px-[35px] rounded-[4px] bg-gradient-to-r from-[#4B63DD] to-[rgba(5,36,191,0.9)]">
+          <button
+            onClick={handleReplyModal}
+            className="flex items-center justify-center gap-[10px] w-max h-max py-[13px] px-[35px] rounded-[4px] bg-gradient-to-r from-[#4B63DD] to-[rgba(5,36,191,0.9)]"
+          >
             <ReplyIcon className="text-[#F6F6F6]" />
             <p className="font-sans font-[600] text-[14px] leading-[21.7px] text-white">
               Reply
