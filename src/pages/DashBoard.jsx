@@ -19,6 +19,9 @@ function DashBoard({ handleTheme }) {
   const navigation = useNavigate();
 
   const handleshowEmailView = () => {
+    setShowEmailView(true);
+  };
+  const handleshowEmailViewOnDelete = () => {
     !showEmailView ? setShowEmailView(true) : setShowEmailView(false);
   };
 
@@ -71,6 +74,7 @@ function DashBoard({ handleTheme }) {
               <EmailView
                 onDelete={fetchEmails}
                 handleshowEmailView={handleshowEmailView}
+                handleshowEmailViewOnDelete = {handleshowEmailViewOnDelete}
               />
             ) : null}
           </div>

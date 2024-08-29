@@ -5,12 +5,18 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import ReplyIcon from "@mui/icons-material/Reply";
 import ExpandIcon from "@mui/icons-material/Expand";
+import DeleteModal from "./DeleteModal";
 
-function EmailView({ onDelete, handleshowEmailView }) {
+function EmailView({
+  onDelete,
+  handleshowEmailView,
+  handleshowEmailViewOnDelete,
+}) {
   const threadId = useSelector((state) => state.email.threadId);
   const [emailChat, setEmailChat] = useState([]);
   const [emailChatZero, setEmailChatZero] = useState(null);
   const [showFull, setShowFull] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const token = localStorage.getItem("authToken");
 
   const fetchEmails = async () => {
@@ -51,8 +57,9 @@ function EmailView({ onDelete, handleshowEmailView }) {
         console.log("Email thread deleted successfully");
         setEmailChat([]);
         setEmailChatZero(null);
-        handleshowEmailView();
+        handleshowEmailViewOnDelete();
         onDelete();
+        setShowModal(false);
       } else {
         console.error("Failed to delete email thread");
       }
@@ -63,7 +70,7 @@ function EmailView({ onDelete, handleshowEmailView }) {
 
   const handleKeyDown = (event) => {
     if (event.key === "d" || event.key === "D") {
-      deleteEmailThread();
+      setShowModal(true);
       console.log("D pressed");
     }
   };
@@ -84,6 +91,10 @@ function EmailView({ onDelete, handleshowEmailView }) {
 
   return (
     <div>
+      {showModal && (
+        <DeleteModal setShowModal={setShowModal} deleteEmailThread={deleteEmailThread}/>
+      )}
+
       <EmailViewHeader emailChat={emailChat} />
       <div className="flex flex-col justify-center items-center gap-8 pt-8">
         {!showFull ? (

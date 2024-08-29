@@ -6,12 +6,13 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import MailCard from "./MailCard";
 import axios from "axios";
 
-function Inbox({handleshowEmailView,emails,onReset}) {
-  const headerHeight = 68; 
-  const searchHeight = 64; 
-  const additionalHeight = 76; 
-  const contentHeight = `calc(100vh - ${headerHeight + searchHeight + additionalHeight}px)`;
-  
+function Inbox({ handleshowEmailView, emails, onReset }) {
+  const headerHeight = 68;
+  const searchHeight = 64;
+  const additionalHeight = 76;
+  const contentHeight = `calc(100vh - ${
+    headerHeight + searchHeight + additionalHeight
+  }px)`;
 
   const handleReset = async () => {
     const token = localStorage.getItem("authToken");
@@ -22,17 +23,14 @@ function Inbox({handleshowEmailView,emails,onReset}) {
           Authorization: `Bearer ${token}`,
         },
       });
-      onReset(); 
+      onReset();
     } catch (error) {
       console.error("Error resetting inbox:", error);
     }
   };
 
-
- 
   return (
     <div className="h-full w-max  bg-transparent border-r border-[#E0E0E0] dark:border-[#33383F] px-5 py-2 flex flex-col gap-[8px]">
-
       <div className="flex justify-between items-center">
         <div>
           <p className="font-sans font-[700] text-[20px] leading-[27.4px] text-[#4285F4]">
@@ -45,9 +43,10 @@ function Inbox({handleshowEmailView,emails,onReset}) {
             </span>
           </p>
         </div>
-        <button 
-        onClick={handleReset}
-        className="border dark:border-0 border-[#DFE3E8] dark:bg-[#25262B] p-[8px] w-[32px] h-[32px] rounded-[4px] flex justify-center items-center">
+        <button
+          onClick={handleReset}
+          className="border dark:border-0 border-[#DFE3E8] dark:bg-[#25262B] p-[8px] w-[32px] h-[32px] rounded-[4px] flex justify-center items-center hover:scale-105"
+        >
           <img src={replayButton} className="hidden dark:block" />
           <img src={replayLightButton} className="block dark:hidden" />
         </button>
@@ -84,8 +83,12 @@ function Inbox({handleshowEmailView,emails,onReset}) {
         style={{ height: contentHeight }}
         className="flex flex-col justify-start items-center overflow-y-scroll pt-2"
       >
-       {emails.map((email) => (
-          <MailCard key={email.id} email={email} handleshowEmailView={handleshowEmailView}/>
+        {emails.map((email) => (
+          <MailCard
+            key={email.id}
+            email={email}
+            handleshowEmailView={handleshowEmailView}
+          />
         ))}
       </div>
     </div>
