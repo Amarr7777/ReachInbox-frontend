@@ -6,35 +6,12 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import MailCard from "./MailCard";
 import axios from "axios";
 
-function Inbox({handleshowEmailView}) {
+function Inbox({handleshowEmailView,emails,onReset}) {
   const headerHeight = 68; 
   const searchHeight = 64; 
   const additionalHeight = 76; 
   const contentHeight = `calc(100vh - ${headerHeight + searchHeight + additionalHeight}px)`;
-  const [emails,setEmails] = useState([]);
   
-  async function fetchEmails() {
-    const token = localStorage.getItem("authToken"); 
-
-    try {
-      const response = await axios.get(
-        "https://hiring.reachinbox.xyz/api/v1/onebox/list",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`, 
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      if (response.status === 200) {
-        setEmails(response.data.data);
-      } else {
-        console.error("Failed to fetch emails");
-      }
-    } catch (error) {
-      console.error("Error fetching emails:", error);
-    }
-  }
 
   const handleReset = async () => {
     const token = localStorage.getItem("authToken");
@@ -45,17 +22,14 @@ function Inbox({handleshowEmailView}) {
           Authorization: `Bearer ${token}`,
         },
       });
-      fetchEmails(); 
+      onReset(); 
     } catch (error) {
       console.error("Error resetting inbox:", error);
     }
   };
 
 
-  useEffect(()=>{
-    fetchEmails();
-  },[])
-
+ 
   return (
     <div className="h-full w-max  bg-transparent border-r border-[#E0E0E0] dark:border-[#33383F] px-5 py-2 flex flex-col gap-[8px]">
 

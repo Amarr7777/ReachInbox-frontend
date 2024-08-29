@@ -6,7 +6,7 @@ import axios from "axios";
 import ReplyIcon from "@mui/icons-material/Reply";
 import ExpandIcon from "@mui/icons-material/Expand";
 
-function EmailView() {
+function EmailView({ onDelete, handleshowEmailView }) {
   const threadId = useSelector((state) => state.email.threadId);
   const [emailChat, setEmailChat] = useState([]);
   const [emailChatZero, setEmailChatZero] = useState(null);
@@ -51,6 +51,8 @@ function EmailView() {
         console.log("Email thread deleted successfully");
         setEmailChat([]);
         setEmailChatZero(null);
+        handleshowEmailView();
+        onDelete();
       } else {
         console.error("Failed to delete email thread");
       }
@@ -62,7 +64,7 @@ function EmailView() {
   const handleKeyDown = (event) => {
     if (event.key === "d" || event.key === "D") {
       deleteEmailThread();
-      console.log("D pressed")
+      console.log("D pressed");
     }
   };
 
@@ -98,9 +100,7 @@ function EmailView() {
                 >
                   <ExpandIcon className="text-[#AEAEAE] w-[9.6px] h-[12px]" />
                   View all
-                  <span className="text-[#4285F4]">
-                    {emailChat.length - 1}
-                  </span>
+                  <span className="text-[#4285F4]">{emailChat.length - 1}</span>
                   replies
                 </span>
                 <span className="h-px flex-1 dark:bg-[rgba(248,250,252,0.2)] bg-[rgba(119,119,119,0.2)] w-full"></span>
