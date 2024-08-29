@@ -1,12 +1,32 @@
-import React from "react";
+import React, { useEffect } from "react";
 import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
 import sendIcon from "../../../assets/sendIcon.svg";
 import sendIconDark from "../../../assets/sendIconDark.svg";
 import mailIcon from "../../../assets/mailIcon.svg";
 import mailIconDark from "../../../assets/mailIconDark.svg";
 import openedMailIcon from "../../../assets/openedMailIcon.svg";
+import { useSelector } from "react-redux";
 
 function Activities() {
+  
+  const { fromName, fromEmail, sentAt } = useSelector((state) => state.email);
+  const dateStr = "2022-02-02T10:08:17.000Z";
+  const date = new Date(dateStr);
+
+
+  const day = date.getDate(); 
+  const month = date.toLocaleString('en-US', { month: 'short' });
+  var ext = ""
+  if (day == 1){
+    ext = "st"
+  }else if(day==2){
+    ext = "nd"
+  }else if(day==3){
+    ext = "rd"
+  }else{
+    ext = "th"
+  }
+
   return (
     <div className="flex flex-col items-start w-full gap-[12px] p-5">
       {/* line 1 */}
@@ -31,8 +51,12 @@ function Activities() {
         {/* line 3.1 */}
         <div className="flex items-center gap-4 w-full px-2 relative z-10">
           <div className="w-[32px] h-[32px] dark:bg-[#23272C] bg-[#EEF1F4] border dark:border-[#41464B] border-[#DFE3E8] rounded-full flex justify-center items-center">
-            <img src={mailIcon} alt="mail icon"  className="block dark:hidden"/>
-            <img src={mailIconDark} alt="mail icon" className="hidden dark:block"/>
+            <img src={mailIcon} alt="mail icon" className="block dark:hidden" />
+            <img
+              src={mailIconDark}
+              alt="mail icon"
+              className="hidden dark:block"
+            />
           </div>
           <div className="flex flex-col justify-center ">
             <p className="dark:text-white text-[#172B4D] font-sans font-[600] text-[13px] leading-[17.7px]">
@@ -40,14 +64,22 @@ function Activities() {
             </p>
             <div className="flex items-center gap-1">
               <div className="w-[16px] h-[16px]">
-                <img src={sendIcon} alt="send icon" className="block dark:hidden"/>
-                <img src={sendIconDark} alt="send icon" className="hidden dark:block"/>
+                <img
+                  src={sendIcon}
+                  alt="send icon"
+                  className="block dark:hidden"
+                />
+                <img
+                  src={sendIconDark}
+                  alt="send icon"
+                  className="hidden dark:block"
+                />
               </div>
               <p className="dark:text-[#B9B9B9] text-[#637381] font-[400] text-[10px] leading-[18px]">
                 sent
               </p>
               <p className="dark:text-[#B9B9B9] text-[#637381] font-[600] text-[10px] leading-[18px]">
-                3rd, Feb
+                {day}{ext},{month}
               </p>
             </div>
           </div>
@@ -56,8 +88,12 @@ function Activities() {
         {/* line 3.2 */}
         <div className="flex items-center gap-4 w-full px-2 relative z-10">
           <div className="w-[32px] h-[32px] dark:bg-[#23272C] bg-[#EEF1F4] border dark:border-[#41464B] border-[#DFE3E8] rounded-full flex justify-center items-center">
-          <img src={mailIcon} alt="mail icon"  className="block dark:hidden"/>
-          <img src={mailIconDark} alt="mail icon" className="hidden dark:block"/>
+            <img src={mailIcon} alt="mail icon" className="block dark:hidden" />
+            <img
+              src={mailIconDark}
+              alt="mail icon"
+              className="hidden dark:block"
+            />
           </div>
           <div className="flex flex-col justify-center">
             <p className="dark:text-white text-[#172B4D] font-sans font-[600] text-[13px] leading-[17.7px]">
@@ -80,8 +116,12 @@ function Activities() {
         {/* line 3.3 */}
         <div className="flex items-center gap-4 w-full px-2 relative z-10">
           <div className="w-[32px] h-[32px] dark:bg-[#23272C] bg-[#EEF1F4] border dark:border-[#41464B] border-[#DFE3E8] rounded-full flex justify-center items-center">
-          <img src={mailIcon} alt="mail icon"  className="block dark:hidden"/>
-          <img src={mailIconDark} alt="mail icon" className="hidden dark:block"/>
+            <img src={mailIcon} alt="mail icon" className="block dark:hidden" />
+            <img
+              src={mailIconDark}
+              alt="mail icon"
+              className="hidden dark:block"
+            />
           </div>
           <div className="flex flex-col justify-center">
             <p className="dark:text-white text-[#172B4D] font-sans font-[600] text-[13px] leading-[17.7px]">

@@ -29,6 +29,13 @@ function Header({ handleTheme }) {
         <p className="font-sans font-[600px] text-[14px] leading-[21.79px] text-[#454F5B] dark:text-white">
           Tim's workspace{" "}
           <KeyboardArrowDownIcon className="text-[#454F5B] dark:text-white" />
+          {/* <div className="absolute  p-5 bg-white  dark:bg-[rgba(225,225,225,0.5)] rounded-md">
+            <button className="bg-gradient-to-r from-[#FA5252] to-[#A91919] px-5 rounded-[4px] w-max h-[48px] flex justify-center items-center hover:scale-105">
+              <p className="font-sans  text-sm text-center text-white">
+                Logout
+              </p>
+            </button>
+          </div> */}
         </p>
       </div>
     </div>

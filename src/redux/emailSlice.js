@@ -6,6 +6,7 @@ const emailSlice = createSlice({
     threadId: null,
     fromName: null,
     fromEmail: null,
+    sentAt: null,
   },
   reducers: {
     setThreadId: (state, action) => {
@@ -14,6 +15,7 @@ const emailSlice = createSlice({
     setEmailDetails: (state, action) => {
       state.fromName = action.payload.fromName;
       state.fromEmail = action.payload.fromEmail;
+      state.sentAt = action.payload.sentAt;
     },
     clearEmailDetails: (state) => {
       state.fromName = null;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import replayButton from "../../../assets/replay.svg";
 import replayLightButton from "../../../assets/replayLight.svg";
 import SearchIcon from "@mui/icons-material/Search";
@@ -7,6 +7,8 @@ import MailCard from "./MailCard";
 import axios from "axios";
 
 function Inbox({ handleshowEmailView, emails, onReset }) {
+  const [searchQuery, setSearchQuery] = useState("");
+
   const headerHeight = 68;
   const searchHeight = 64;
   const additionalHeight = 76;
@@ -28,6 +30,16 @@ function Inbox({ handleshowEmailView, emails, onReset }) {
       console.error("Error resetting inbox:", error);
     }
   };
+
+  const handleSearch = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const filteredEmails = emails.filter(
+    (email) =>
+      email.fromEmail.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      email.subject.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <div className="h-full w-max bg-transparent border-r border-[#E0E0E0] dark:border-[#33383F] px-5 py-2 flex flex-col gap-[8px]">
@@ -55,7 +67,9 @@ function Inbox({ handleshowEmailView, emails, onReset }) {
       <div className="flex items-center justify-start py-[4px] px-[6px] bg-[rgba(244,246,248,1)] dark:bg-[#23272C] border border-[#DFE3E8] dark:border-[rgba(225,225,225,0.1)] rounded-[4px]">
         <SearchIcon className="-hue-rotate-90 text-[#172B4D] dark:text-[rgba(225,225,225,0.2)]" />
         <input
-          placeholder="search"
+          value={searchQuery}
+          onChange={handleSearch}
+          placeholder="Search"
           className="w-full h-[28px] bg-transparent font-sans font-[400] text-[14px] leading-[20px] focus:outline-none focus:ring-0 text-gray-400"
         />
       </div>
@@ -83,7 +97,7 @@ function Inbox({ handleshowEmailView, emails, onReset }) {
         style={{ height: contentHeight }}
         className="flex flex-col justify-start items-center overflow-y-scroll pt-2"
       >
-        {emails.map((email) => (
+        {filteredEmails.map((email) => (
           <MailCard
             key={email.id}
             email={email}

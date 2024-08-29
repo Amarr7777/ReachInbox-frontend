@@ -14,44 +14,82 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 
 function ReplayModal({ handleReplyModal }) {
-  // const[from,setFrom] = useState("");
-  // const[to,setTo] = useState("");
-  // const[subject,setSubject] = useState("");
-  // const[body,setBody] = useState("");
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
+  const [subject, setSubject] = useState("");
+  const [replyBody, setReplyBody] = useState("");
   const token = localStorage.getItem("authToken");
   const threadId = useSelector((state) => state.email.threadId);
 
   const handleReply = async () => {
-    var raw = JSON.stringify({
-        toName: "Mitrajit",
-        to: "chandra.rupam@gmail.com",
-        from: "mitrajit2022@gmail.com",
-        fromName: "Mitrajit",
-        subject: "Optimize Your Recruitment Efforts with Expert Support",
-        body: "<p>Hello how are you</p>",
-        references: [
-          "<dea5a0c2-336f-1dc3-4994-191a0ad3891a@gmail.com>",
-          "<CAN5Dvwu24av80BmEg9ZVDWaP2+hTOrBQn9KhjfFkZZX_Do88FA@mail.gmail.com>",
-          "<CAN5DvwuzPAhoBEpQGRUOFqZF5erXc=B98Ew_5zbHF5dmeKWZMQ@mail.gmail.com>",
-          "<a1383d57-fdee-60c0-d46f-6bc440409e84@gmail.com>"
-        ],
-        inReplyTo: "<a1383d57-fdee-60c0-d46f-6bc440409e84@gmail.com>"
-      });
-      
-      var requestOptions = {
-        method: 'POST',
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
-        },
-        body: raw,
-        redirect: 'follow'
-      };
-      
-      fetch(`https://hiring.reachinbox.xyz/api/v1/onebox/reply/${threadId}`, requestOptions)
-        .then(response => response.text())
-        .then(result => console.log(result))
-        .catch(error => console.log('error', error));
+    // var raw = JSON.stringify({
+    //   toName: "Mitrajit",
+    //   to: to,
+    //   from: from,
+    //   fromName: "Mitrajit",
+    //   subject: subject,
+    //   body: body,
+    //   references: [
+    //     "<dea5a0c2-336f-1dc3-4994-191a0ad3891a@gmail.com>",
+    //     "<CAN5Dvwu24av80BmEg9ZVDWaP2+hTOrBQn9KhjfFkZZX_Do88FA@mail.gmail.com>",
+    //     "<CAN5DvwuzPAhoBEpQGRUOFqZF5erXc=B98Ew_5zbHF5dmeKWZMQ@mail.gmail.com>",
+    //     "<a1383d57-fdee-60c0-d46f-6bc440409e84@gmail.com>",
+    //   ],
+    //   inReplyTo: "<a1383d57-fdee-60c0-d46f-6bc440409e84@gmail.com>",
+    // });
+
+    // var requestOptions = {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     Authorization: `Bearer ${token}`,
+    //   },
+    //   body: raw,
+    //   redirect: "follow",
+    // };
+
+    // fetch(
+    //   `https://hiring.reachinbox.xyz/api/v1/onebox/reply/${threadId}`,
+    //   requestOptions
+    // )
+    //   .then((response) => response.text())
+    //   .then((result) => console.log(result))
+    //   .catch((error) => console.log("error", error));
+
+    // try {
+    //   await axios.post(
+    //     `https://hiring.reachinbox.xyz/api/v1/onebox/reply/${threadId}`,
+    //     {
+    //       from: "your-email@example.com",
+    //       to: "recipient-email@example.com",
+    //       subject: "Re: Subject",
+    //       body: replyBody,
+    //       headers: {
+    //         Authorization: `Bearer ${token}`,
+    //       },
+    //     }
+    //   );
+    //   alert("Reply sent!");
+    // } catch (error) {
+    //   console.error("Reply error:", error);
+    // }
+
+    var raw =
+      '{\n    "toName": "Mitrajit",\n    "to": "chandra.rupam@gmail.com",\n    "from": "mitrajit2022@gmail.com",\n    "fromName": "Mitrajit",\n    "subject": "Optimize Your Recruitment Efforts with Expert Support",\n    "body": "<p>Hello how are you</p>",\n    "references": [\n        "<dea5a0c2-336f-1dc3-4994-191a0ad3891a@gmail.com>",\n        "<CAN5Dvwu24av80BmEg9ZVDWaP2+hTOrBQn9KhjfFkZZX_Do88FA@mail.gmail.com>",\n        "<CAN5DvwuzPAhoBEpQGRUOFqZF5erXc=B98Ew_5zbHF5dmeKWZMQ@mail.gmail.com>",\n        "<a1383d57-fdee-60c0-d46f-6bc440409e84@gmail.com>"\n    ],\n    "inReplyTo": "<a1383d57-fdee-60c0-d46f-6bc440409e84@gmail.com>"\n}';
+
+    var requestOptions = {
+      method: "POST",
+      headers: {
+            Authorization: `Bearer ${token}`,
+          },
+      body: raw,
+      redirect: "follow",
+    };
+
+    fetch(`https://hiring.reachinbox.xyz/api/v1/onebox/reply/${threadId}`, requestOptions)
+      .then((response) => response.text())
+      .then((result) => console.log(result))
+      .catch((error) => console.log("error", error));
   };
 
   return (
@@ -75,6 +113,9 @@ function ReplayModal({ handleReplyModal }) {
             To:
           </p>
           <input
+            onChange={(e) => {
+              setTo(e.target.value);
+            }}
             className="dark:text-[#E7E7E7] font-[400] text-[12px] font-sans leading[16.34px] w-full bg-transparent px-2 focus:outline-none focus:ring-0"
             placeholder="to@icloud.com"
           />
@@ -85,6 +126,9 @@ function ReplayModal({ handleReplyModal }) {
             From:
           </p>
           <input
+            onChange={(e) => {
+              setFrom(e.target.value);
+            }}
             className="dark:text-[#E7E7E7] font-[400] text-[12px] font-sans leading[16.34px] w-full bg-transparent px-2 focus:outline-none focus:ring-0"
             placeholder="to@icloud.com"
           />
@@ -95,12 +139,19 @@ function ReplayModal({ handleReplyModal }) {
             Subject:
           </p>
           <input
+            onChange={(e) => {
+              setSubject(e.target.value);
+            }}
             className="dark:text-[#E7E7E7] font-[400] text-[12px] font-sans leading[16.34px] w-full bg-transparent px-2 focus:outline-none focus:ring-0"
             placeholder="subject"
           />
         </div>
         {/* textarea */}
         <textarea
+          value={replyBody}
+          onChange={(e) => {
+            setReplyBody(e.target.value);
+          }}
           className="flex-grow font-[400] text-[12px] font-sans leading[16.34px] w-full bg-gray-100 dark:bg-[#141517] dark:text-[#E7E7E7]  rounded-[4px] px-[32px] py-[8px] focus:outline-none focus:ring-0 resize-none"
           placeholder="Type your message here..."
         />

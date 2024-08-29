@@ -114,7 +114,7 @@ function EmailView({
       {showReplyModal && <ReplayModal handleReplyModal={handleReplyModal} />}
 
       <EmailViewHeader emailChat={emailChat} />
-      <div className="flex flex-col justify-center items-center gap-8 pt-8">
+      <div className="flex flex-col justify-center items-center gap-8 pt-8 overflow-y-scroll  ">
         {!showFull ? (
           <div className="flex flex-col gap-[8px]">
             {emailChatZero && (
@@ -138,7 +138,9 @@ function EmailView({
           </div>
         ) : (
           emailChat.map((email) => (
-            <EmailViewCard key={email.id} email={email} />
+            <>
+              <EmailViewCard key={email.id} email={email} />
+            </>
           ))
         )}
         <div className="md:w-[753px]">

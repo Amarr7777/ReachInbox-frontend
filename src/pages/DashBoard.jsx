@@ -8,15 +8,17 @@ import Lead from "../components/dashboard/Lead/Lead";
 import EmailView from "../components/dashboard/emailView/EmailView";
 import { useDispatch } from "react-redux";
 import { setToken } from "../redux/authSlice";
+import welcomeImg from "../assets/welcomeImg.svg";
 
 function DashBoard({ handleTheme }) {
   const [emails, setEmails] = useState([]);
   const [showEmailView, setShowEmailView] = useState(false);
+  const [index, setIndex] = useState(6);
 
   const token = localStorage.getItem("authToken");
   const dispatch = useDispatch();
   dispatch(setToken(token));
-  const navigation = useNavigate();
+  const navigate = useNavigate();
 
   const handleshowEmailView = () => {
     setShowEmailView(true);
@@ -49,41 +51,58 @@ function DashBoard({ handleTheme }) {
   }
 
   useEffect(() => {
-    if (!token) {
-      navigation.navigate("/");
-    } else {
-      fetchEmails();
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get("token");
+    if (token) {
+      localStorage.setItem("authToken", token);
+      console.log("Token stored in localStorage:", token);
+      fetchEmails()
+    }else{
+      navigate("/")
     }
-  }, [token, navigation]);
+  }, [navigate,token]);
+
 
   return (
-    <div class="flex flex-shrink">
-      <SideBar />
+    <div class="hidden lg:flex">
+      <SideBar setIndex={setIndex} />
       <div className="flex flex-col w-full">
         <Header handleTheme={handleTheme} />
-        <div className="h-full w-full flex dark:bg-black bg-white">
-          <div>
-            <Inbox
-              handleshowEmailView={handleshowEmailView}
-              emails={emails}
-              onReset={fetchEmails}
-            />
+        {index == 6 ? (
+          <div className="h-full w-full flex dark:bg-black bg-white">
+            <div>
+              <Inbox
+                handleshowEmailView={handleshowEmailView}
+                emails={emails}
+                onReset={fetchEmails}
+              />
+            </div>
+            {showEmailView ? (
+              <>
+                <div className="w-full">
+                  <EmailView
+                    onDelete={fetchEmails}
+                    handleshowEmailView={handleshowEmailView}
+                    handleshowEmailViewOnDelete={handleshowEmailViewOnDelete}
+                  />
+                </div>
+                <div>
+                  <Lead />
+                </div>
+              </>
+            ) : null}
           </div>
-          {showEmailView ? (
-            <>
-              <div className="w-full">
-                <EmailView
-                  onDelete={fetchEmails}
-                  handleshowEmailView={handleshowEmailView}
-                  handleshowEmailViewOnDelete={handleshowEmailViewOnDelete}
-                />
-              </div>
-              <div>
-                <Lead />
-              </div>
-            </>
-          ) : null}
-        </div>
+        ) : (
+          <div className="flex flex-col justify-center items-center h-full gap-5 bg-white dark:bg-black">
+            <img src={welcomeImg} alt="welcome image" />
+            <p className="font-[700] text-[24px] leading-[36.53px] text-center w-full text-black dark:text-white">
+              It's the beginning of a legendary sales pipeline
+            </p>
+            <p className="font-[500] text-[18px] leading-[27.4px] text-center w-1/5 text-gray-600 dark:text-[#9E9E9E]">
+              When you have inbound E-mails you'll see them here
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );

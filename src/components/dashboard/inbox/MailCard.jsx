@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import Tag from "./Tag";
 import { useDispatch } from "react-redux";
 import { setEmailDetails, setThreadId } from "../../../redux/emailSlice";
+import sendIconDark from "../../../assets/campIcon.svg";
 
 function MailCard({ email, handleshowEmailView }) {
   const dispatch = useDispatch();
@@ -13,12 +14,6 @@ function MailCard({ email, handleshowEmailView }) {
   const handleClick = () => {
     handleshowEmailView();
     dispatch(setThreadId(email.threadId));
-    dispatch(
-      setEmailDetails({
-        fromName: email.fromName,
-        fromEmail: email.fromEmail,
-      })
-    );
     console.log("clicked thread", email.threadId);
   };
 
@@ -45,8 +40,17 @@ function MailCard({ email, handleshowEmailView }) {
         {email.subject}
       </p>
       <div className="flex justify-start items-center gap-[8px]">
-        <Tag />
-        <Tag />
+        <Tag/>
+        <div className="flex  justify-center items-center gap-[8px]">
+          <div className="flex  justify-center items-center gap-[4px] bg-[#F0F0F0] dark:bg-[#222426] rounded-[17px] px-[8px] py-[3px]">
+            <div className="w-[12px] h-[12px] flex justify-center items-center rounded-[50px] bg-[#C4ECDA] dark:bg-[#2D3833]">
+              <img src={sendIconDark} />
+            </div>
+            <p className="font-sans font-[600] text-[10px] leading-[13.62px] text-[#FFFFFF]">
+              Campaign
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -1,6 +1,8 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
 function LeadBody() {
+  const { fromName, fromEmail,sentAt } = useSelector((state) => state.email);
   return (
     <div className="flex flex-col justify-center items-center gap-[20px] px-[2px] py-[8px] w-full">
       {/* line 1 */}
@@ -9,7 +11,7 @@ function LeadBody() {
           Name
         </p>
         <p className="text-black dark:text-[#B9B9B9] font-[400] text-[14px] leading-[16.94px]">
-          Orlando
+          {fromName}
         </p>
       </div>
       {/* line 2 */}
@@ -19,7 +21,7 @@ function LeadBody() {
           Contact No
         </p>
         <p className="text-black dark:text-[#B9B9B9] font-[400] text-[14px] leading-[16.94px]">
-          Orlando
+        +54-9062827869
         </p>
       </div>
       {/* line 3 */}
@@ -28,7 +30,7 @@ function LeadBody() {
           Email ID
         </p>
         <p className="text-black dark:text-[#B9B9B9] font-[400] text-[14px] leading-[16.94px]">
-          Orlando
+        {fromEmail}
         </p>
       </div>
       {/* line 4 */}
@@ -37,7 +39,7 @@ function LeadBody() {
           LinkedIn
         </p>
         <p className="text-black dark:text-[#B9B9B9] font-[400] text-[14px] leading-[16.94px]">
-          Orlando
+        linkedin.com/in/timvadde/
         </p>
       </div>
       {/* line 5 */}
@@ -46,7 +48,7 @@ function LeadBody() {
           Company Name
         </p>
         <p className="text-black dark:text-[#B9B9B9] font-[400] text-[14px] leading-[16.94px]">
-          Orlando
+        Reachinbox
         </p>
       </div>
     </div>
