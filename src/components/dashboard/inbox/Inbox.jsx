@@ -12,6 +12,7 @@ function Inbox({handleshowEmailView}) {
   const additionalHeight = 76; 
   const contentHeight = `calc(100vh - ${headerHeight + searchHeight + additionalHeight}px)`;
   const [emails,setEmails] = useState([]);
+  
   async function fetchEmails() {
     const token = localStorage.getItem("authToken"); 
 
@@ -35,7 +36,21 @@ function Inbox({handleshowEmailView}) {
     }
   }
 
-  
+  const handleReset = async () => {
+    const token = localStorage.getItem("authToken");
+
+    try {
+      await axios.get("https://hiring.reachinbox.xyz/api/v1/onebox/reset", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      fetchEmails(); 
+    } catch (error) {
+      console.error("Error resetting inbox:", error);
+    }
+  };
+
 
   useEffect(()=>{
     fetchEmails();
@@ -56,7 +71,9 @@ function Inbox({handleshowEmailView}) {
             </span>
           </p>
         </div>
-        <button className="border dark:border-0 border-[#DFE3E8] dark:bg-[#25262B] p-[8px] w-[32px] h-[32px] rounded-[4px] flex justify-center items-center">
+        <button 
+        onClick={handleReset}
+        className="border dark:border-0 border-[#DFE3E8] dark:bg-[#25262B] p-[8px] w-[32px] h-[32px] rounded-[4px] flex justify-center items-center">
           <img src={replayButton} className="hidden dark:block" />
           <img src={replayLightButton} className="block dark:hidden" />
         </button>
