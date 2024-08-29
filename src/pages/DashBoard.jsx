@@ -6,11 +6,20 @@ import Inbox from "../components/dashboard/inbox/Inbox";
 import { useNavigate } from "react-router-dom";
 import Lead from "../components/dashboard/Lead/Lead";
 import EmailView from "../components/dashboard/emailView/EmailView";
+import { useDispatch } from "react-redux";
+import { setToken } from "../redux/authSlice";
 
 function DashBoard({ handleTheme }) {
   const [emails, setEmails] = useState([]);
-  const token = localStorage.getItem("authToken"); // Retrieve the token from storage
+  const [showEmailView, setShowEmailView] = useState(false);
+  const token = localStorage.getItem("authToken");
+  const dispatch = useDispatch();
+  dispatch(setToken(token));
   const navigation = useNavigate();
+
+  const handleshowEmailView = () => {
+    setShowEmailView(true);
+  };
 
   useEffect(() => {
     if (!token) {
@@ -25,11 +34,9 @@ function DashBoard({ handleTheme }) {
         <Header handleTheme={handleTheme} />
         <div className="h-full w-full flex dark:bg-black bg-white">
           <div>
-            <Inbox />
+            <Inbox handleshowEmailView={handleshowEmailView} />
           </div>
-          <div className="w-full">
-            <EmailView/>
-          </div>
+          <div className="w-full">{showEmailView ? <EmailView /> : null}</div>
           <div>
             <Lead />
           </div>

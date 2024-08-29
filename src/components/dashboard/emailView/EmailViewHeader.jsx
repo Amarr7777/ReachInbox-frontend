@@ -1,15 +1,17 @@
 import React from "react";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { useSelector } from "react-redux";
 
 function EmailViewHeader() {
+  const { fromName, fromEmail } = useSelector((state) => state.email); 
   return (
     <div className="flex justify-between items-center border-b border-b-[#E0E0E0] dark:border-b-[rgba(248,250,252,0.2)] h-[70px] p-[17px]">
       <div className="flex flex-col justify-start items-start">
         <p className="font-[600] text-[14px] leading-[20px] dark:text-white text-[#343A40]">
-          Orlando
+          {fromName}
         </p>
         <p className="font-[400] text-[12px] leading-[18px] dark:text-[rgba(255,255,255,0.4)] text-[#343A40]">
-          Orlando@gmail.com
+          {fromEmail}
         </p>
       </div>
 
