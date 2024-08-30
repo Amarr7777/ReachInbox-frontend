@@ -6,8 +6,8 @@ function LoginCard() {
   const history = useNavigate();
 
   const handleLogin = () => {
-    // const redirectUri = 'http://localhost:5173/onebox'; // Your frontend URL where Google will redirect after login local
-    const redirectUri = 'https://reach-inbox-frontend-six.vercel.app/onebox'; // Your frontend URL where Google will redirect after login
+    // const redirectUri = 'http://localhost:5173'; // Your frontend URL where Google will redirect after login local
+    const redirectUri = 'https://reach-inbox-frontend-six.vercel.app'; // Your frontend URL where Google will redirect after login
     const authUrl = `https://hiring.reachinbox.xyz/api/v1/auth/google-login?redirect_to=${encodeURIComponent(redirectUri)}`;
 
     // Redirect to the custom Google OAuth URL

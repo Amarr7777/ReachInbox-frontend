@@ -51,11 +51,7 @@ function DashBoard({ handleTheme }) {
   }
 
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const token = urlParams.get("token");
     if (token) {
-      localStorage.setItem("authToken", token);
-      console.log("Token stored in localStorage:", token);
       fetchEmails()
     }else{
       navigate("/")
