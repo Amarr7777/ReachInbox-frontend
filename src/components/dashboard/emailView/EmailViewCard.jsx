@@ -4,13 +4,13 @@ import { setEmailDetails } from "../../../redux/emailSlice";
 
 function EmailViewCard({ email }) {
   const dispatch = useDispatch();
-  dispatch(
-    setEmailDetails({
-      fromName: email.fromName,
-      fromEmail: email.fromEmail,
-      sentAt: email.sentAt,
-    })
-  );
+  // dispatch(
+  //   setEmailDetails({
+  //     fromName: email.fromName,
+  //     fromEmail: email.fromEmail,
+  //     sentAt: email.sentAt,
+  //   })
+  // );
 
   function formatDate(sentAt) {
     const now = new Date();

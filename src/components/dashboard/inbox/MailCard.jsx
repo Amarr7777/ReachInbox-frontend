@@ -14,6 +14,13 @@ function MailCard({ email, handleshowEmailView }) {
   const handleClick = () => {
     handleshowEmailView();
     dispatch(setThreadId(email.threadId));
+    dispatch(
+        setEmailDetails({
+          fromName: email.fromName,
+          fromEmail: email.fromEmail,
+          sentAt: email.sentAt,
+        })
+      );
     console.log("clicked thread", email.threadId);
   };
 
