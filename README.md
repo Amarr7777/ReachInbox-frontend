@@ -49,4 +49,24 @@ To set up the project locally, follow these steps:
 The redirect-url should be changed to local url if you're running it locally navigate to src/components/login/LoginCard.jsx
 
 ```jsx
-const redirectUri = 'http://localhost:5173/onebox';
+const redirectUri = 'http://localhost:5173';
+```
+## Implementation Details
+
+### Login Page
+
+- Implement the login page based on the provided design.
+- Redirect users to the /onebox screen after logging in via Google OAuth.
+
+### OneBox Screen
+
+Data Fetching:
+- Fetch list of threads: GET /onebox/list
+- Fetch a specific thread: GET /onebox/:thread_id
+- Delete a thread: DELETE /onebox/:thread_id
+    - Keyboard Shortcuts:
+	- “D”: Deletes the selected thread.
+	- “R”: Opens the reply box.
+- Reply Functionality:
+    - Clicking “Send” should send a reply to the selected thread.
+    - POST request to: POST /reply/:thread_id
